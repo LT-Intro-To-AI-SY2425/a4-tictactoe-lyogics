@@ -9,10 +9,31 @@ class TTTBoard:
         board - a list of '*'s, 'X's & 'O's. 'X's represent moves by player 'X', 'O's
             represent moves by player 'O' and '*'s are spots no one has yet played on
     """
-    def __init__(self, board):
-        self.board = "***\n***\n***\n"
-    pass
+    def __init__(self):
+        self.board = ['*' for _ in range(9)]
+    
+    def __str__(self) -> str:
+        rows = []
+        for i in range(3):
+            row = ' '.join(self.board[i*3:(i + 1) * 3])
+            rows.append(row)
+        return '\n'.join(rows)
+        
+    def make_move(self, player, pos):
+        """ Places a move for `player` in the position `pos` (where the board squares are 
+        numbered from left to right, starting in the top left square with 0, and beginning
+        at the left in each new row), if possible. '`player`' is a string ("X" or "O") 
+        and `pos` is an integer. Returns `True` if the move was made and `False` if not
+        (because the spot was full, or outside the boundaries of the board)."""
+    def has_won(self, player): 
+        """Returns `True` if `player` has won the game, and `False` if not """
+    def game_over(self): 
+        """Returns `True` if someone has won or if the board is full, `False` otherwise"""
+    def clear(self): 
+        """Clears the board to reset the game"""
 
+
+        
 
 def play_tic_tac_toe() -> None:
     """Uses your class to play TicTacToe"""
