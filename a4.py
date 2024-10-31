@@ -25,12 +25,39 @@ class TTTBoard:
         at the left in each new row), if possible. '`player`' is a string ("X" or "O") 
         and `pos` is an integer. Returns `True` if the move was made and `False` if not
         (because the spot was full, or outside the boundaries of the board)."""
+        if pos < 0 or pos >= 9:
+            return False
+        
+        if self.board[pos] != '*':
+            return False
+        
+        self.board[pos] = player
+        return True
+       
     def has_won(self, player): 
         """Returns `True` if `player` has won the game, and `False` if not """
+        if (self.board[0] and self.board[1] and self.board[2] == player):
+            return True
+        elif (self.board[3] and self.board[4] and self.board[5] == player):
+            return True
+        elif (self.board[6] and self.board[7] and self.board[8] == player):
+            return True
+        elif (self.board[0] and self.board[4] and self.board[8] == player):
+            return True
+        elif (self.board[2] and self.board[4] and self.board[6] == player):
+            return True
+        elif (self.board[0] and self.board[3] and self.board[6] == player):
+            return True
+        elif (self.board[1] and self.board[4] and self.board[7] == player):
+            return True
+        elif (self.board[2] and self.board[5] and self.board[8] == player):
+            return True
+        return False
     def game_over(self): 
         """Returns `True` if someone has won or if the board is full, `False` otherwise"""
     def clear(self): 
         """Clears the board to reset the game"""
+        self.board = ['*' in range(9)]
 
 
         
