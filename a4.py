@@ -55,12 +55,15 @@ class TTTBoard:
         return False
     def game_over(self): 
         """Returns `True` if someone has won or if the board is full, `False` otherwise"""
+        if '*' not in self.board:
+            return True
+        if self.has_won() == True:
+            return self.has_won()
+        return False
     def clear(self): 
         """Clears the board to reset the game"""
         self.board = ['*' in range(9)]
 
-
-        
 
 def play_tic_tac_toe() -> None:
     """Uses your class to play TicTacToe"""
