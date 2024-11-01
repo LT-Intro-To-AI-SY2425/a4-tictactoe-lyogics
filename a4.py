@@ -55,10 +55,8 @@ class TTTBoard:
         return False
     def game_over(self): 
         """Returns `True` if someone has won or if the board is full, `False` otherwise"""
-        if '*' not in self.board:
+        if '*' not in self.board or self.has_won() == True:
             return True
-        if self.has_won() == True:
-            return self.has_won()
         return False
     def clear(self): 
         """Clears the board to reset the game"""
