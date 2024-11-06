@@ -10,57 +10,51 @@ class TTTBoard:
             represent moves by player 'O' and '*'s are spots no one has yet played on
     """
     def __init__(self):
-        self.board = ['*' for _ in range(9)]
-    
+        self.board = ['*' for _ in range(9)] # self.board = ["*"] * 9
     def __str__(self) -> str:
-        rows = []
-        for i in range(3):
-            row = ' '.join(self.board[i*3:(i + 1) * 3])
-            rows.append(row)
-        return '\n'.join(rows)
+        s = ""
+        for x in [0, 3, 6]:
+            s += self.board[x+0] + " " + self.board[x+1] + " " + self.board[x+2] + "\n"
+        return s
         
-    def make_move(self, player, pos):
+    def make_move(self, player, pos) -> bool:
         """ Places a move for `player` in the position `pos` (where the board squares are 
         numbered from left to right, starting in the top left square with 0, and beginning
         at the left in each new row), if possible. '`player`' is a string ("X" or "O") 
         and `pos` is an integer. Returns `True` if the move was made and `False` if not
         (because the spot was full, or outside the boundaries of the board)."""
-        if pos < 0 or pos >= 9:
-            return False
-        
-        if self.board[pos] != '*':
+        if pos < 0 or pos > 8 or self.board[pos] != '*':
             return False
         
         self.board[pos] = player
         return True
        
-    def has_won(self, player): 
+    def has_won(self, player) -> bool: 
         """Returns `True` if `player` has won the game, and `False` if not """
-        if (self.board[0] and self.board[1] and self.board[2] == player):
+        ps = [player] * 3 # a list of ['X', 'X', 'X'] or Os (in that fashion)
+        
+        # check horizontally
+        if (self.board[:3] == ps or self.board[3:6] == ps or self.board[6:] == ps):
             return True
-        elif (self.board[3] and self.board[4] and self.board[5] == player):
+        # check vertically
+        if (self.board[::3] == ps or self.board[1::3] == ps or self.board[2::3] == ps):
             return True
-        elif (self.board[6] and self.board[7] and self.board[8] == player):
+        # check diagonally
+        if (self.board[::4] == ps or self.board[2:8:2] == ps):
             return True
-        elif (self.board[0] and self.board[4] and self.board[8] == player):
-            return True
-        elif (self.board[2] and self.board[4] and self.board[6] == player):
-            return True
-        elif (self.board[0] and self.board[3] and self.board[6] == player):
-            return True
-        elif (self.board[1] and self.board[4] and self.board[7] == player):
-            return True
-        elif (self.board[2] and self.board[5] and self.board[8] == player):
-            return True
+        
         return False
-    def game_over(self): 
+    
+    def game_over(self) -> bool: 
         """Returns `True` if someone has won or if the board is full, `False` otherwise"""
-        if '*' not in self.board or self.has_won() == True:
+        if (self.has_won("X") or self.has_won("O") or "*" not in self.board):
             return True
-        return False
-    def clear(self): 
-        """Clears the board to reset the game"""
-        self.board = ['*' in range(9)]
+        return False    
+    
+    def clear(self) -> None:
+        """Clears board to reset the game"""
+        self.board = ["*"] * 9
+
 
 
 def play_tic_tac_toe() -> None:
